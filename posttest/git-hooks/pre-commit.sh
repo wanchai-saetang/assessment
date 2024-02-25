@@ -1,1 +1,2 @@
+cd posttest
 ./gradlew test
