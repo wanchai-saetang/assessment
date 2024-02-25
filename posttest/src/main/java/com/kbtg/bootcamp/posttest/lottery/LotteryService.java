@@ -13,9 +13,11 @@ public class LotteryService {
         this.lotteryRepository = lotteryRepository;
     }
 
-    public List<Lottery> getLotteries() {
+    public LotteriesResponse getLotteries() {
         List<Lottery> lotteries = lotteryRepository.findAll();
-        return lotteries;
+        LotteriesResponse lotteriesResponse = new LotteriesResponse();
+        lotteriesResponse.setTickets(lotteries.stream().map(Lottery::getTicket).toList());
+        return lotteriesResponse;
     }
 
     public LotteryResponse addLottery(LotteryRequest lotteryRequest) {

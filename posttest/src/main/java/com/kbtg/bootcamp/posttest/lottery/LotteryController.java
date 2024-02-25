@@ -3,7 +3,6 @@ package com.kbtg.bootcamp.posttest.lottery;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -20,7 +19,7 @@ public class LotteryController {
     }
 
     @GetMapping("/lotteries")
-    public List<Lottery> getLotteries() {
+    public LotteriesResponse getLotteries() {
         return this.lotteryService.getLotteries();
     }
 }
