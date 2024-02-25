@@ -1,3 +1,2 @@
 cd posttest
-./gradlew test
-./gradlew spotlessCheck --stacktrace
+./gradlew test spotlessCheck --stacktrace
