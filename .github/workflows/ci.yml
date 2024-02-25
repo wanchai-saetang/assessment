@@ -21,6 +21,8 @@ jobs:
   unit-test:
     name: Run Unit Test
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: localhost
     needs:
       - linter
     steps:
