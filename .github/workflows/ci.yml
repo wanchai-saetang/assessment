@@ -35,7 +35,7 @@ jobs:
           working-directory: ./posttest
           run: ./gradlew test
           env:
-            DATABASE_URL: localhost
+            SPRING_PROFILES_ACTIVE: test
   build:
     name: Build Java
     runs-on: ubuntu-latest
