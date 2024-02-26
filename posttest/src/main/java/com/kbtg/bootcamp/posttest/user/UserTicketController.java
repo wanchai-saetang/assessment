@@ -1,5 +1,6 @@
 package com.kbtg.bootcamp.posttest.user;
 
+import com.kbtg.bootcamp.posttest.lottery.LotteryResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +25,9 @@ public class UserTicketController {
         return this.userTicketService.getMyLotteries(userId);
     }
 
+    @DeleteMapping("/{userId}/lotteries/{ticketId}")
+    public LotteryResponse sellMyTicket(@PathVariable @NotBlank @Size(min = 10, max = 10, message = "User ID must be 10 digits") String userId, @PathVariable @NotBlank @Size(min = 6, max = 6, message = "Ticket number must be 10 digits") String ticketId) {
+        return this.userTicketService.sellMyTicket(userId, ticketId);
+    }
 
 }
