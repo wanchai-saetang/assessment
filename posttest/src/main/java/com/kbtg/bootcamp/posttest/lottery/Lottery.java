@@ -1,10 +1,13 @@
 package com.kbtg.bootcamp.posttest.lottery;
 
+import com.kbtg.bootcamp.posttest.user.UserTicket;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "lottery")
@@ -23,6 +26,8 @@ public class Lottery {
     private LocalDateTime createdDateTime;
     @Column(name = "updated_datetime", nullable = false)
     private LocalDateTime updatedDateTime;
+    @OneToMany(mappedBy = "ticket")
+    private List<UserTicket> userTickets = new ArrayList<>();
 
     public String getTicket() {
         return ticket;
@@ -62,5 +67,13 @@ public class Lottery {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public List<UserTicket> getUserTickets() {
+        return userTickets;
+    }
+
+    public void setUserTickets(List<UserTicket> userTickets) {
+        this.userTickets = userTickets;
     }
 }
