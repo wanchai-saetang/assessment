@@ -6,6 +6,10 @@ import com.kbtg.bootcamp.posttest.lottery.LotteryRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
 
 @Service
 public class UserTicketService {
@@ -35,5 +39,19 @@ public class UserTicketService {
         BuyTicketResponse buyTicketResponse = new BuyTicketResponse();
         buyTicketResponse.setId(userTicketSaved.getId());
         return buyTicketResponse;
+    }
+
+    public MyLotteriesResponse getMyLotteries(String userId) {
+        List<UserTicket> userTickets = userTicketRepository.findByUserId(userId);
+        if (userTickets.isEmpty()) {
+            throw new NotFoundException(String.format("User ID %s or ticket of the User ID not found", userId));
+        }
+        MyLotteriesResponse myLotteriesResponse = new MyLotteriesResponse();
+        List<Lottery> lotteries = userTickets.stream().map(UserTicket::getTicket).toList();
+        myLotteriesResponse.setTickets(lotteries.stream().map(Lottery::getTicket).toList());
+        myLotteriesResponse.setCount(userTickets.size());
+        myLotteriesResponse.setCost(lotteries.stream().map(Lottery::getPrice).reduce(0,Integer::sum));
+
+        return myLotteriesResponse;
     }
 }
